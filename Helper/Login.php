@@ -24,7 +24,7 @@ class UserLogin
         $password = readline ("Enter Your Password: ");
         $data = json_decode( file_get_contents ( $this->dataFile ), true );
         
-        if (php_sapi_name() == "cli") {
+        if ( php_sapi_name() == "cli" ) {
             if(!empty( $data['user'] )){
 
                 foreach ( $data as $value ) {
