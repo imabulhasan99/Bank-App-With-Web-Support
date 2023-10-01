@@ -1,19 +1,6 @@
 <?php 
 namespace Helper;
 
-/* use Helper\Deposit;
-use Helper\CurrentBalance;
-use Helper\TransactionOparation;
-use Helper\Withdraw;
-use Helper\MoneyTransfer; */
-
-/* require_once('Deposit.php');
-require_once('Withdraw.php');
-require_once('CurrentBlance.php');
-require_once('Transaction.php');
-require_once('MoneyTransfer.php'); */
-
-
 spl_autoload_register(function ($className) {
     
     $baseDir = 'Helper/';
