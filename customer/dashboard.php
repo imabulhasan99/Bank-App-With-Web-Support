@@ -1,4 +1,15 @@
-<?php require_once("../inc/header.php") ?>
+<?php 
+require_once("../inc/header.php");
+require_once("../vendor/autoload.php"); 
+
+session_start();
+
+if (!isset($_SESSION['email'])) {
+    header('Location: ../login.php'); 
+    exit;
+}
+
+?>
 
     <title>Dashboard</title>
   </head>

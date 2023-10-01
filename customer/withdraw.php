@@ -1,4 +1,7 @@
-<?php require_once("../inc/header.php") ?>
+<?php 
+require_once("../inc/header.php"); 
+require_once("../vendor/autoload.php"); 
+?>
 
     <title>Withdraw Balance</title>
   </head>

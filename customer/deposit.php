@@ -1,4 +1,7 @@
-<?php require_once("../inc/header.php") ?>
+<?php 
+require_once("../inc/header.php"); 
+require_once("../vendor/autoload.php"); 
+?>
 
     <title>Deposit Balance</title>
   </head>

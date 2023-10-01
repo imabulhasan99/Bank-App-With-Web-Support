@@ -1,4 +1,19 @@
-<?php require_once("inc/header.php") ?>
+<?php 
+use App\User;
+require_once("vendor/autoload.php"); 
+require_once("inc/header.php") ;
+if( isset($_POST['name']) && isset( $_POST['email'] )  && isset( $_POST['password'] )){
+
+$username = $_POST['name'];
+$useremail = $_POST['email'];
+$userpassword = $_POST['password'];
+$user = new User();
+$user->UserRegister($username, $useremail, $userpassword);
+
+}
+
+
+?>
 
     <title>Create A New Account</title>
   </head>
@@ -15,7 +30,7 @@
         <div class="px-6 py-12 bg-white shadow sm:rounded-lg sm:px-12">
           <form
             class="space-y-6"
-            action="#"
+            action=""
             method="POST">
             <div>
               <label
