@@ -1,13 +1,14 @@
 <?php 
 require_once("../inc/header.php");
-require_once("../vendor/autoload.php"); 
+//require_once("../vendor/autoload.php"); 
 
-session_start();
+/* use App\User;
 
-if (!isset($_SESSION['email'])) {
-    header('Location: ../login.php'); 
-    exit;
+if( isset( $_POST['signout'] ) ){
+  $user = new User();
+  $user->logout();
 }
+ */
 
 ?>
 

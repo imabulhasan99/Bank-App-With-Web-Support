@@ -1,4 +1,26 @@
+<?php 
+require_once __DIR__ . '/../vendor/autoload.php'; 
 
+use App\User;
+use App\Deposit;
+use App\Withdraw;
+
+$depsoit = new Deposit();
+
+$w = new Withdraw();
+
+if( isset( $_POST['signout'] ) ){
+  $user = new User();
+  $user->logout();
+}
+session_start();
+if (!isset($_SESSION['email'])) {
+    header('Location: ../login.php'); 
+    exit;
+}
+
+
+?>
 
 <!DOCTYPE html>
 <html

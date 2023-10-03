@@ -39,7 +39,7 @@
                   <div>
                     <button
                       @click="open = !open"
-                      type="button"
+                      type="submit"
                       class="flex rounded-full bg-white text-sm focus:outline-none"
                       id="user-menu-button"
                       aria-expanded="false"
@@ -67,14 +67,11 @@
                     aria-orientation="vertical"
                     aria-labelledby="user-menu-button"
                     tabindex="-1">
-                    <a
-                      href="#"
-                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      role="menuitem"
-                      tabindex="-1"
-                      id="user-menu-item-2"
-                      >Sign out</a
-                    >
+                    <form action="" method="POST" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" id="user-menu-item-2">
+                      
+                      <button type="submit" name="signout">Sign Out</button>
+                    
+                    </form>
                   </div>
                 </div>
               </div>

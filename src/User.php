@@ -17,38 +17,8 @@ class User {
  }
 
 
-  public function UserLogin( string $email, string $password, string $loginoption) {
-        $this->email = $email;
-        $this->password = md5($password);
-        $this->loginoption = $loginoption;
 
-        if( empty($this->email && $this->password) ) {
-            echo '<div class="bg-red-400 text-white p-2 rounded text-center">Email and password are required.</div>';
-        }
-
-        $loginQuery = "SELECT * FROM users WHERE email = :email AND password = :password AND user_type = :loginoption";
-        $loginstmt  = $this->db->prepare($loginQuery);
-        $loginstmt->bindParam(":email", $this->email);
-        $loginstmt->bindParam(":password", $this->password);
-        $loginstmt->bindParam(":loginoption", $this->loginoption);
-        $loginstmt->execute();
-        if( $loginstmt->rowCount() === 1 ){
-            session_start();
-            $_SESSION['email'] = $this->email;
-            if( $this->loginoption == "customer") {
-                header('Location: customer/dashboard.php');
-                exit();
-            }
-
-
-        }else{
-            echo "Not oke";
-        }
-        
-  }
-
-
-  public function UserRegister( string $name , string $email, $password ) {
+  public function UserRegister( string $name , string $email, string $password ) {
         $this->name = $name;
         $this->email = $email;
         $this->password = $password;
@@ -101,6 +71,46 @@ class User {
   }
 
 
+  public function UserLogin( string $email, string $password, string $loginoption) {
+    $this->email = $email;
+    $this->password = md5($password);
+    $this->loginoption = $loginoption;
 
+    if( empty($this->email && $this->password) ) {
+        echo '<div class="bg-red-400 text-white p-2 rounded text-center">Email and password are required.</div>';
+    }
+
+    $loginQuery = "SELECT * FROM users WHERE email = :email AND password = :password AND user_type = :loginoption";
+    $loginstmt  = $this->db->prepare($loginQuery);
+    $loginstmt->bindParam(":email", $this->email);
+    $loginstmt->bindParam(":password", $this->password);
+    $loginstmt->bindParam(":loginoption", $this->loginoption);
+    $loginstmt->execute();
+    
+    if( $loginstmt->rowCount() === 1 ){
+        session_start();
+        $_SESSION['email'] = $this->email;
+        if( $this->loginoption == "customer") {
+            header('Location: customer/dashboard.php');
+            exit();
+        }
+
+
+    }else{
+        echo "Not oke";
+    }
+    
+}
+
+
+    public function logout() {
+        session_start();
+        session_unset();
+        session_destroy();
+        header('Location: ../login.php');
+        exit();
+    }
+
+  
 
 }

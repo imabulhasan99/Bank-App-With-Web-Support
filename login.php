@@ -1,6 +1,6 @@
 <?php
 use App\User;
-if( isset($_POST["email"]) && isset( $_POST["password"] ) && isset( $_POST["password"] )){
+if( isset($_POST["email"]) && isset( $_POST["password"] ) ){
   require_once("vendor/autoload.php"); 
   $userlogin = new User();
   $email = $_POST["email"];

@@ -1,6 +1,13 @@
 <?php 
+
 require_once("../inc/header.php"); 
-require_once("../vendor/autoload.php"); 
+if( isset( $_POST['amount'] ) ){
+  $amount = $_POST['amount'];
+  $depsoit->makeDeposit($amount);
+  $depsoit->getUserId();
+}
+
+$w->getUserId();
 ?>
 
     <title>Deposit Balance</title>
@@ -50,7 +57,7 @@ require_once("../vendor/autoload.php");
                 </h3>
                 <div class="mt-4 text-sm text-gray-500">
                   <form
-                    action="#"
+                    action=""
                     method="POST">
                     <!-- Input Field -->
                     <div class="relative mt-2 rounded-md">
@@ -71,6 +78,7 @@ require_once("../vendor/autoload.php");
                     <div class="mt-5">
                       <button
                         type="submit"
+                        name="makedeposit"
                         class="w-full px-6 py-3.5 text-base font-medium text-white bg-emerald-600 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 rounded-lg sm:text-xl text-center">
                         Proceed
                       </button>
