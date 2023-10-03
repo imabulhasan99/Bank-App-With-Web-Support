@@ -1,4 +1,6 @@
-<?php 
+<?php
+
+
 
 require_once("../inc/header.php"); 
 if( isset( $_POST['amount'] ) ){
@@ -7,7 +9,7 @@ if( isset( $_POST['amount'] ) ){
   $depsoit->getUserId();
 }
 
-$w->getUserId();
+
 ?>
 
     <title>Deposit Balance</title>

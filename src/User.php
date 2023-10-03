@@ -8,6 +8,7 @@ class User {
   private $email;
   private $password;
   private $userType = "customer";
+  private $userId;
   private $loginoption;
   private $db;
 
@@ -16,6 +17,22 @@ class User {
     $this->db = new Database();
  }
 
+
+  public function UserId(){
+
+
+    $userSql = "SELECT id FROM users WHERE email = :email";
+        $userSqlstmt = $this->db->prepare($userSql);
+        $userSqlstmt->bindParam(":email", $_SESSION['email']);
+        $userSqlstmt->execute();
+        $result = $userSqlstmt->fetchAll();
+        if (!empty($result)) {
+            
+            return $_SESSION['userid'] = $result[0]['id'];
+        }
+
+
+  }
 
 
   public function UserRegister( string $name , string $email, string $password ) {
