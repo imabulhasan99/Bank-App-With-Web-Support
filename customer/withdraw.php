@@ -2,6 +2,14 @@
 
 require_once("../inc/header.php"); 
 
+if( isset( $_POST['withdraw'] ) ){
+  $amount = $_POST['withdrawamount'];
+  //echo $transaction->checkWithdrawAmount( $amount );
+  $transaction->BalanceWithdraw( $amount );
+ 
+
+}
+
 ?>
 
     <title>Withdraw Balance</title>
@@ -34,7 +42,7 @@ require_once("../inc/header.php");
                 </dt>
                 <dd
                   class="w-full flex-none text-3xl font-medium leading-10 tracking-tight text-gray-900">
-                  $10,115,091.00
+                  <?php  echo $transaction->AvilableBalance(); ?>
                 </dd>
               </div>
             </dl>
@@ -58,7 +66,7 @@ require_once("../inc/header.php");
                       </div>
                       <input
                         type="number"
-                        name="amount"
+                        name="withdrawamount"
                         id="amount"
                         class="block w-full ring-0 outline-none text-xl pl-4 py-2 sm:pl-8 text-gray-800 border-b border-b-emerald-500 placeholder:text-gray-400 sm:text-4xl"
                         placeholder="0.00"
@@ -69,6 +77,7 @@ require_once("../inc/header.php");
                     <div class="mt-5">
                       <button
                         type="submit"
+                        name="withdraw"
                         class="w-full px-6 py-3.5 text-base font-medium text-white bg-emerald-600 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 rounded-lg sm:text-xl text-center">
                         Proceed
                       </button>

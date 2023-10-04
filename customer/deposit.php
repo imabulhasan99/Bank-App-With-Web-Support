@@ -6,7 +6,7 @@ require_once("../inc/header.php");
 if( isset( $_POST['amount'] ) ){
   $amount = $_POST['amount'];
   $depsoit->makeDeposit($amount);
-  $depsoit->getUserId();
+  
 }
 
 
@@ -45,7 +45,7 @@ if( isset( $_POST['amount'] ) ){
                 </dt>
                 <dd
                   class="w-full flex-none text-3xl font-medium leading-10 tracking-tight text-gray-900">
-                  $10,115,091.00
+                  <?php   echo $transaction->AvilableBalance(); ?>
                 </dd>
               </div>
             </dl>
