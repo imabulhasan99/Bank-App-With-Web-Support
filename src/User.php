@@ -29,63 +29,104 @@ class User {
         if (!empty($result)) {
             
             return $_SESSION['userid'] = $result[0]['id'];
+            
         }
 
 
   }
 
+        public function CurrentUserData() {
+            $currentUserId = $this->UserId();
 
-  public function UserRegister( string $name , string $email, string $password ) {
-        $this->name = $name;
-        $this->email = $email;
-        $this->password = $password;
+            $sql = "SELECT * FROM moneytransfer WHERE user_id = :user_id";
 
-           if( !empty($this->name && $this->email) ) {
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(":user_id", $currentUserId);
+            $stmt->execute();
+            $data = $stmt->fetchAll();
 
-                
-                    if (filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+            return $data;
+        }
 
-                        $this->password = md5($password);
-                        $checkUserQuery = "SELECT * FROM users WHERE email = :email";
-                        $stmt = $this->db->prepare($checkUserQuery);
-                        $stmt->bindParam(':email', $this->email);
-                        $stmt->execute();
-                      
-                        if( $stmt->rowCount() === 0 ){
+        
+        public function AllUserData() {
+            
+            $sql = "SELECT * FROM moneytransfer";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute();
+            $data = $stmt->fetchAll();
 
-                            $inserQuery = "INSERT INTO users (name, email, password, user_type) VALUES(:name, :email, :password, :user_type)";
-                            $insertstmt = $this->db->prepare($inserQuery);
-                            $insertstmt->bindParam(":name", $this->name);
-                            $insertstmt->bindParam(":email", $this->email); 
-                            $insertstmt->bindParam(":password", $this->password);
-                            $insertstmt->bindParam(":user_type", $this->userType);
-                            if ($insertstmt->execute()) {
-                                echo '<div class="bg-green-400 text-white p-2 rounded text-center">Successfully Registered</div>';
-                            } else {
-                                echo '<div class="bg-red-400 text-white p-2 rounded text-center">Unable to register</div>';
-                            }
+            return $data;
+        }
 
-                        }else{
-                            echo '<div class="bg-red-400 text-white p-2 rounded text-center">Email already exits in Database</div>';
-                        }
+        public function UserName(){
 
 
-
-                } else {
-                    echo '<div class="bg-red-400 text-white p-2 rounded text-center">Email is not valid.</div>';
+            $userSql = "SELECT name FROM users WHERE email = :email";
+                $userSqlstmt = $this->db->prepare($userSql);
+                $userSqlstmt->bindParam(":email", $_SESSION['email']);
+                $userSqlstmt->execute();
+                $result = $userSqlstmt->fetchAll();
+                if (!empty($result)) {
+                    
+                    return $_SESSION['name'] = $result[0]['name'];
+                    
                 }
 
-           
+
+        }
+
+        public function UserRegister( string $name , string $email, string $password ) {
+                $this->name = $name;
+                $this->email = $email;
+                $this->password = $password;
+
+                if( !empty($this->name && $this->email) ) {
+
+                        
+                            if (filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+
+                                $this->password = md5($password);
+                                $checkUserQuery = "SELECT * FROM users WHERE email = :email";
+                                $stmt = $this->db->prepare($checkUserQuery);
+                                $stmt->bindParam(':email', $this->email);
+                                $stmt->execute();
+                            
+                                if( $stmt->rowCount() === 0 ){
+
+                                    $inserQuery = "INSERT INTO users (name, email, password, user_type) VALUES(:name, :email, :password, :user_type)";
+                                    $insertstmt = $this->db->prepare($inserQuery);
+                                    $insertstmt->bindParam(":name", $this->name);
+                                    $insertstmt->bindParam(":email", $this->email); 
+                                    $insertstmt->bindParam(":password", $this->password);
+                                    $insertstmt->bindParam(":user_type", $this->userType);
+                                    if ($insertstmt->execute()) {
+                                        echo '<div class="bg-green-400 text-white p-2 rounded text-center">Successfully Registered</div>';
+                                    } else {
+                                        echo '<div class="bg-red-400 text-white p-2 rounded text-center">Unable to register</div>';
+                                    }
+
+                                }else{
+                                    echo '<div class="bg-red-400 text-white p-2 rounded text-center">Email already exits in Database</div>';
+                                }
 
 
 
-           }else{
-            echo '<div class="bg-red-400 text-white p-2 rounded text-center">All field are required</div>';
-           }
+                        } else {
+                            echo '<div class="bg-red-400 text-white p-2 rounded text-center">Email is not valid.</div>';
+                        }
+
+                
 
 
 
-  }
+                }else{
+                    echo '<div class="bg-red-400 text-white p-2 rounded text-center">All field are required</div>';
+                }
+
+
+
+        }
 
 
   public function UserLogin( string $email, string $password, string $loginoption) {

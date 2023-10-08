@@ -10,7 +10,7 @@ class Withdraw {
     private $totalBalance = 0;
     private $totalDeposit = 0;
     private $totalWithdraw = 0;
-    private $amount;
+    private $useralldata;
     private $transDate; 
     
     public function __construct() {
@@ -21,44 +21,41 @@ class Withdraw {
     public function availableBalance() {
         $currentUserId = $this->userid->UserId();
      
-        $balanceCheckSql = "SELECT amount, trans_type FROM transactions WHERE user_id = :user_id";
+        // Calculate the total amount from the moneytransfer table for the current user
+        $totalMoneyTransferSql = "SELECT SUM(amount) AS total_moneytransfer_amount FROM moneytransfer WHERE user_id = :user_id";
+        $totalMoneyTransferStmt = $this->db->prepare($totalMoneyTransferSql);
+        $totalMoneyTransferStmt->bindParam(":user_id", $currentUserId);
+        $totalMoneyTransferStmt->execute();
+        $totalMoneyTransfer = $totalMoneyTransferStmt->fetchColumn();
+      
+        // Calculate the total deposit and withdrawal from the transactions table
+        $balanceCheckSql = "SELECT transactions.amount AS transaction_amount, transactions.trans_type
+        FROM transactions
+        WHERE transactions.user_id = :user_id";
         $balanceCheckstmt = $this->db->prepare($balanceCheckSql);
         $balanceCheckstmt->bindParam(":user_id", $currentUserId);
         $balanceCheckstmt->execute();
         $balances = $balanceCheckstmt->fetchAll();
-        echo'<pre>';
-        return print_r( $balances );
-        echo '</pre>';
+    
         foreach ($balances as $balance) {
             if ($balance['trans_type'] === 'deposit') {
-                $this->totalDeposit += $balance['amount']; 
-            } else {
-                $this->totalWithdraw += $balance['amount']; 
+                $this->totalDeposit += $balance['transaction_amount'];
+            } elseif ($balance['trans_type'] === 'withdraw') {
+                $this->totalWithdraw += $balance['transaction_amount']; 
             }
         }
-     
-        $this->totalBalance = $this->totalDeposit - $this->totalWithdraw;
+    
+       
+        $this->totalBalance = $this->totalDeposit - $this->totalWithdraw - $totalMoneyTransfer;
+    
         return $this->totalBalance;
     }
-
-
-
-    public function checkWithdrawAmount( int $amount ){
-        return $this->amount = $amount;
-    }
-
-/* 
-    public function makeWithdraw( int $amount ) {
-        return $this->availableBalance();
-     } */
- 
-
-
-   public function makeWithdraw( int $amount) {
+    
+//Withdraw Functionality For withdraw page
+   public function makeWithdraw( int $amount ) {
 
         if ($this->availableBalance() > $amount) {
-            //$CurrentUserId = $this->userid->UserId();
-            //$this->availableBalance();
+          
 
             $this->availableBalance();
             $CurrentUserId = $this->userid->UserId();
@@ -82,10 +79,13 @@ class Withdraw {
         } 
     } 
     
-   
+//Money Transfer Data for Dashboard Page
+
 
 }
 
+
+  
 
 
 

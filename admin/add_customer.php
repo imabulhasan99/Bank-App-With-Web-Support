@@ -1,4 +1,20 @@
-<?php require_once("../inc/header.php") ?>
+<?php 
+
+require_once("../inc/header.php");
+
+if (isset($_POST["adminCustomerAdd"])) {
+  if( isset($_POST['first-name']) && isset($_POST['last-name']) && isset( $_POST['email'] )  && isset( $_POST['password'] )){
+
+    $customerFirstName = $_POST['first-name'];
+    $customerLastName = $_POST['last-name'];
+    $customerFullName = $customerFirstName.' '.$customerLastName;
+    $customerEmail = $_POST['email'];
+    $customerPassword = $_POST['password'];
+    $customer->customerRegister($customerFullName,$customerEmail,$customerPassword);
+    }
+  
+}
+?>
 
 
     <title>Add a New Customer</title>
@@ -22,7 +38,7 @@
       <main class="-mt-32">
         <div class="px-4 pb-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div class="bg-white rounded-lg">
-            <form
+            <form action="" method="POST"
               class="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
               <div class="px-4 py-6 sm:p-8">
                 <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -104,6 +120,7 @@
                 </button>
                 <button
                   type="submit"
+                  name="adminCustomerAdd"
                   class="px-3 py-2 text-sm font-semibold text-white rounded-md shadow-sm bg-sky-600 hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600">
                   Create Customer
                 </button>

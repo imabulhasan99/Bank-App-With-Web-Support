@@ -1,6 +1,16 @@
 <?php 
 require_once("../inc/header.php"); 
-require_once("../vendor/autoload.php"); 
+require_once("../vendor/autoload.php");
+if( isset( $_POST['transfer'] ) ){
+    $email = $_POST['email'];
+    $name = $_POST['name'];
+    $amount = $_POST['amount'];
+    $transaction->BalanceTransfer( $email,$name,$amount ) ;
+}
+
+
+
+
 ?>
 
     <title>Transfer Balance</title>
@@ -47,7 +57,7 @@ require_once("../vendor/autoload.php");
               <div class="px-4 py-5 sm:p-6">
                 <div class="mt-4 text-sm text-gray-500">
                   <form
-                    action="#"
+                    action=""
                     method="POST">
                     <!-- Recipient's Email Input -->
                     <input
@@ -57,6 +67,16 @@ require_once("../vendor/autoload.php");
                       class="block w-full ring-0 outline-none py-2 text-gray-800 border-b placeholder:text-gray-400 md:text-4xl"
                       placeholder="Recipient's Email Address"
                       required />
+
+                    <!-- Recipient's Name -->
+                    <input
+                      type="text"
+                      name="name"
+                      id="email"
+                      class="block w-full ring-0 outline-none py-2 text-gray-800 border-b placeholder:text-gray-400 md:text-4xl"
+                      placeholder="Recipient's Name"
+                      required />
+
 
                     <!-- Amount -->
                     <div class="relative mt-4 md:mt-8">
@@ -77,6 +97,7 @@ require_once("../vendor/autoload.php");
                     <div class="mt-5">
                       <button
                         type="submit"
+                        name="transfer"
                         class="w-full px-6 py-3.5 text-base font-medium text-white bg-emerald-600 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 rounded-lg md:text-xl text-center">
                         Proceed
                       </button>

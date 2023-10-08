@@ -1,14 +1,21 @@
 <?php 
 require_once __DIR__ . '/../vendor/autoload.php'; 
-
+use App\Helper;
 use App\User;
-use App\Deposit;
-use App\Withdraw;
-use App\TransactionManager;
+use App\Admin\AdminHelper;
+//Object Creation for Admin Oparations
+$adminHelper = new AdminHelper();
+$customer = $adminHelper->createCustomerManagerObject();
 
-$transaction = new TransactionManager();
-$withdraw = new Withdraw();
-$depsoit = new Deposit();
+
+
+
+//Object Creation for Csutometers Oparations
+$HelperObejct = new Helper();
+$user = $HelperObejct->createUserObject();
+$withdraw = $HelperObejct->createWithdrawObject();
+$transaction = $HelperObejct->createTransactionManagerObject();
+$depsoit = $HelperObejct->createDepositObject();
 
 if( isset( $_POST['signout'] ) ){
   $user = new User();
