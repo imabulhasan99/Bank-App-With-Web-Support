@@ -1,5 +1,8 @@
 <?php
 
+if ( php_sapi_name() !== 'cli' ){
+    header('Location: login.php');
+}
 
 require_once("Helper/Login.php");
 require_once("Helper/Register.php");

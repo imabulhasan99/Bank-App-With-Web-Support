@@ -48,6 +48,8 @@
                   </div>
 
                   <!-- Dropdown menu -->
+              
+
                   <div
                     x-show="open"
                     @click.away="open = false"
@@ -56,15 +58,20 @@
                     aria-orientation="vertical"
                     aria-labelledby="user-menu-button"
                     tabindex="-1">
-                    <a
-                      href="#"
-                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      role="menuitem"
-                      tabindex="-1"
-                      id="user-menu-item-2"
-                      >Sign out</a
-                    >
+ 
+                    <form action="" method="post">
+                    <button name="signout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"  role="menuitem"tabindex="-1"id="user-menu-item-2" type="submit">Sign out</button>
+                    </form>
+                  
                   </div>
+
+
+              
+
+                
+
+
+
                 </div>
               </div>
               <div class="-mr-2 flex items-center sm:hidden">
@@ -169,11 +176,11 @@
                 </button>
               </div>
               <div class="mt-3 space-y-1 px-2">
-                <a
-                  href="#"
-                  class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-sky-500 hover:bg-opacity-75"
-                  >Sign out</a
-                >
+              <form action="login.php" method="POST" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" id="user-menu-item-2">
+                      
+                      <button type="submit" name="signout">Sign Out</button>
+                    
+                    </form>
               </div>
             </div>
           </div>

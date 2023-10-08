@@ -1,4 +1,9 @@
 <?php 
+if( php_sapi_name() === 'cli' ){
+  exit('Its not for CLI') ;
+}
+
+
 require_once __DIR__ . '/../vendor/autoload.php'; 
 use App\Helper;
 use App\User;

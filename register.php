@@ -1,7 +1,7 @@
 <?php 
 use App\User;
 require_once("vendor/autoload.php"); 
-require_once("inc/header.php") ;
+
 if( isset($_POST['name']) && isset( $_POST['email'] )  && isset( $_POST['password'] )){
 
 $username = $_POST['name'];
@@ -14,7 +14,35 @@ $user->UserRegister($username, $useremail, $userpassword);
 
 
 ?>
+<!DOCTYPE html>
+<html
+  class="h-full bg-white"
+  lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
 
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com" />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet" />
+
+    <style>
+      * {
+        font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont,
+          'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+          'Helvetica Neue', sans-serif;
+      }
+    </style>
     <title>Create A New Account</title>
   </head>
   <body class="h-full bg-slate-100">
@@ -95,7 +123,7 @@ $user->UserRegister($username, $useremail, $userpassword);
         <p class="mt-10 text-sm text-center text-gray-500">
           Already a customer?
           <a
-            href="./login.html"
+            href="./login.php"
             class="font-semibold leading-6 text-emerald-600 hover:text-emerald-500"
             >Sign-in</a
           >

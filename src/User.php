@@ -129,35 +129,43 @@ class User {
         }
 
 
-  public function UserLogin( string $email, string $password, string $loginoption) {
+  public function UserLogin( string $email, string $password ) {
     $this->email = $email;
     $this->password = md5($password);
-    $this->loginoption = $loginoption;
+   
 
     if( empty($this->email && $this->password) ) {
         echo '<div class="bg-red-400 text-white p-2 rounded text-center">Email and password are required.</div>';
     }
 
-    $loginQuery = "SELECT * FROM users WHERE email = :email AND password = :password AND user_type = :loginoption";
+    $loginQuery = "SELECT * FROM users WHERE email = :email AND password = :password";
     $loginstmt  = $this->db->prepare($loginQuery);
     $loginstmt->bindParam(":email", $this->email);
     $loginstmt->bindParam(":password", $this->password);
-    $loginstmt->bindParam(":loginoption", $this->loginoption);
     $loginstmt->execute();
-    
-    if( $loginstmt->rowCount() === 1 ){
+
+    if( $loginstmt->execute() ){
+        $result = $loginstmt->fetchAll();
+    }else{
+        echo "Query Not oke";
+    }
+ 
+
+   if( $loginstmt->rowCount() === 1 ){
         session_start();
         $_SESSION['email'] = $this->email;
-        if( $this->loginoption == "customer") {
+        if( $result[0]['user_type'] === "customer") {
             header('Location: customer/dashboard.php');
-            exit();
+           
+        }else{
+            header('Location: admin/customers.php');
         }
 
 
     }else{
         echo "Not oke";
     }
-    
+     
 }
 
 
